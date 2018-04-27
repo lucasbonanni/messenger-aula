@@ -1,4 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { UserModel } from '../../Models/user-model';
 
 /**
  * Generated class for the LoginFormComponent component.
@@ -12,11 +14,22 @@ import { Component } from '@angular/core';
 })
 export class LoginFormComponent {
 
-  text: string;
+  private login : FormGroup;
 
-  constructor() {
-    console.log('Hello LoginFormComponent Component');
-    this.text = 'Hello World';
+  @Input() user : UserModel;
+
+  @Output() onSubmit: EventEmitter<UserModel>;
+
+  public constructor(private formBuilder: FormBuilder) {
+      this.login = this.formBuilder.group({
+          email: ['', Validators.email],
+          password: ['',Validators.required],
+        });
+      this.onSubmit = new EventEmitter<UserModel>();
+   }
+
+  public submit(){
+       this.onSubmit.emit(this.user);
   }
 
 }

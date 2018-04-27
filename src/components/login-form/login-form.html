@@ -1,4 +1,12 @@
-<!-- Generated template for the LoginFormComponent component -->
-<div>
-  {{text}}
-</div>
+<form [formGroup]="login" (ngSubmit)="submit()" #loginForm="ngForm">
+  <ion-item>
+      <ion-label floating>E-mail</ion-label>
+      <ion-input type="email" formControlName="email" [(ngModel)]="user.email"></ion-input>
+  </ion-item>
+  <ion-item>
+      <ion-label floating>Password</ion-label>
+      <ion-input type="password" formControlName="password" [(ngModel)]="user.password"></ion-input>
+  </ion-item>
+  <!--span>{{login.status}} - {{login.controls['email'].valid}}</span-->
+  <button ion-button block medium type="submit" [disabled]="!loginForm.form.valid">Login</button>
+</form>
